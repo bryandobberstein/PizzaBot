@@ -1,1 +1,5 @@
-This is the alpha for a game a friend and I are developing. As you can see it is a bare skeleton. More to come.
+This is a game I am developing with a friend.
+
+Story Concept: Jason Brown
+Story Written by: Jason Brown and Bryan Dobberstein
+Coding by: Bryan Dobberstein
