@@ -1,3 +1,9 @@
+/*This is Alpha Two of PizzaBot: The Stonening, an interactive text game.
+ * Story by: Jason Brown
+ * Written by: Jason Brown and Bryan Dobberstein
+ * Coded by: Bryan Dobberstein
+ */
+
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import javax.swing.*;
@@ -5,11 +11,14 @@ import javax.swing.*;
 public class pizzaBotAlphaTwo extends JFrame {
 
     /**
-	 * 
+	 * Naming conventions: labels are named for the level on the decision tree, the choice made on the previous level, and
+	 * modifiers (at this point level of intoxication is the only modifier). For example, the first label is l0c0s0 (level zero,
+	 * choice zero as the only choice made at that point is to turn the game on, stoned 0.
 	 */
 	private static final long serialVersionUID = 1653874834216389457L;
-	JLabel lab1, lab2, lab3;
-    JButton but1, but2, resetBut;
+	JLabel l0c0s0, l1c0s1, l1c1s0, l2c0s1, l2c1s1, l3c0s1, l3c1s1, l3c2s1, l3c3s1;
+    JButton yesBut, noBut, resetBut;
+    int stoned = 0, level = 0;
 
 
 	/**
@@ -23,35 +32,63 @@ public class pizzaBotAlphaTwo extends JFrame {
         JPanel thePanel = new JPanel();
             this.add(thePanel, BorderLayout.PAGE_START);
 
+//Generate labels for game text.
+//l0
+        l0c0s0 = new JLabel("Pizza Bot: The Stonening\nGet high?");
+        l0c0s0.setVisible(true);
+        thePanel.add(l0c0s0);
+//l1 Yes from l0c0s0
+        l1c0s1 = new JLabel("You are " + stoned +" stoned.\nYou are out of drug. Take delivery near dealer?");
+        l1c0s1.setVisible(false);
+        thePanel.add(l1c0s1);
+//l1 No from l0c0s0
+        l1c1s0 = new JLabel("You are not stoned.\nThis path requires further development");
+        l1c1s0.setVisible(false);
+        thePanel.add(l1c1s0);
+//l2 Yes  
+        l2c0s1 = new JLabel("You are " + stoned +" stoned.\nSee dealer.\nEncounter dealer?");
+        l2c0s1.setVisible(false);
+        thePanel.add(l2c0s1);
+//l2 No
+        l2c1s1 = new JLabel("You are " + stoned +" stoned.\nYou take another delivery.");
+        l2c1s1.setVisible(false);
+        thePanel.add(l2c1s1);
+//l3
+        l3c0s1 = new JLabel("You are " + stoned +" stoned.\nYou encounter drug dealer\nHe wants you to make delivery for him.\nMake delivery?");
+        l3c0s1.setVisible(false);
+        thePanel.add(l3c0s1);
 
-        lab1 = new JLabel("You're in a place with some stuff\n");
-            lab1.setVisible(true);
-            thePanel.add(lab1);
+        l3c1s1 = new JLabel("You are " + stoned +" stoned.\nYou panic and run.\nDL's bodyguard shoots you.");
+        l3c1s1.setVisible(false);
+        thePanel.add(l3c1s1);
 
-        lab2 = new JLabel("Yay, you did something!\n");
-            lab2.setVisible(false);
-            thePanel.add(lab2);
+        l3c2s1 = new JLabel("You are " + stoned +" stoned.\n");
+        l3c2s1.setVisible(false);
+        thePanel.add(l3c2s1);
 
-        lab3 = new JLabel("You did something wrong. Now you're dead.\n");
-            lab3.setVisible(false);
-            thePanel.add(lab3);
+        l3c3s1 = new JLabel("You are " + stoned +" stoned.\n");
+        l3c3s1.setVisible(false);
+        thePanel.add(l3c3s1);
+
+
+
 
         ListenForButton buttonClick = new ListenForButton();
         
         JPanel butpan = new JPanel();
     	this.add(butpan, BorderLayout.PAGE_END);        
+//yes button
+        yesBut = new JButton("Yes");
+        yesBut.addActionListener(buttonClick);
+        butpan.add(yesBut);
+//no button
+        noBut = new JButton("No");
+        noBut.addActionListener(buttonClick);                
+        butpan.add(noBut);
 
-        but1 = new JButton("Choice 1");
-            but1.addActionListener(buttonClick);
-            butpan.add(but1);
-
-        but2 = new JButton("Choice 2");
-            but2.addActionListener(buttonClick);                
-            butpan.add(but2);
-
-        resetBut = new JButton("Reset");
+/*        resetBut = new JButton("Reset");
             resetBut.addActionListener(buttonClick);
-            butpan.add(resetBut);
+            butpan.add(resetBut);*/
 
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
@@ -64,23 +101,39 @@ public class pizzaBotAlphaTwo extends JFrame {
 
         private class ListenForButton implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == but1){
-                    lab1.setVisible(false);
-                    lab2.setVisible(true);
-                    lab3.setVisible(false);
+                if(e.getSource() == yesBut){
+                    if(level == 0) { //level 0
+                    	l0c0s0.setVisible(false);
+                    	l1c0s1.setVisible(true);
+                    	level++;
+                    }
+                    
+                    else if(level == 1) { //level1
+                    	l1c0s1.setVisible(false);
+                    	l2c0s1.setVisible(true);
+                    	level++;
+                    }
+                    
+                    else if(level == 2) { //level 2
+                    	l2c0s1.setVisible(false);
+                    	l3c0s1.setVisible(true);
+                    	level++;
+                    }
                 }
 
-                else if(e.getSource() == but2) {
-                    lab1.setVisible(false);
-                    lab2.setVisible(false);
-                    lab3.setVisible(true);
+                else if(e.getSource() == noBut) {
+                    if(level == 0) { //level 0 no
+                    	l0c0s0.setVisible(false);
+                    	l1c1s0.setVisible(true);
+                    	level++;
+                    }
                 }
 
-                else if(e.getSource() == resetBut) {
+/*                else if(e.getSource() == resetBut) {
                     lab1.setVisible(true);
                     lab2.setVisible(false);
                     lab3.setVisible(false);
-                }
+                }*/
             }
         }
 
