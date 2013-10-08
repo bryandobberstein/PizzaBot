@@ -11,13 +11,12 @@ import javax.swing.*;
 public class pizzaBotAlphaTwo extends JFrame {
 
     /**
-	 * Naming conventions: labels are named for the level on the decision tree, the choice made on the previous level, and
-	 * modifiers (at this point level of intoxication is the only modifier). For example, the first label is l0c0s0 (level zero,
-	 * choice zero as the only choice made at that point is to turn the game on, stoned 0.
+	 * 
 	 */
 	private static final long serialVersionUID = 1653874834216389457L;
-	JLabel l0c0s0, l1c0s1, l1c1s0, l2c0s1, l2c1s1, l3c0s1, l3c1s1, l3c2s1, l3c3s1;
-    JButton yesBut, noBut, resetBut;
+	JTextArea gameTA;
+	JTextField stonedTF;
+    JButton butA, butB, butC, butD, resetBut;
     int stoned = 0, level = 0;
 
 
@@ -29,115 +28,90 @@ public class pizzaBotAlphaTwo extends JFrame {
     }
 
     public pizzaBotAlphaTwo() {
-        JPanel thePanel = new JPanel();
-            this.add(thePanel, BorderLayout.PAGE_START);
+        JPanel tPanel = new JPanel(); //create top panel and add to frame
+            this.add(tPanel, BorderLayout.PAGE_START);
+            
+        JPanel mPanel = new JPanel(); //create middle panel and add to frame
+        	this.add(mPanel, BorderLayout.CENTER);
+        	
+        JPanel bPanel = new JPanel(); //create bottom panel and add to frame
+        	this.add(bPanel, BorderLayout.PAGE_END);
+            
+        stonedTF = new JTextField("You are " + stoned + "% stoned.", 12); //create stoned % text field and add to top panel
+        stonedTF.setEditable(false);
+        tPanel.add(stonedTF);
+        
+        gameTA = new JTextArea(10, 30); //create main game text area and add to middle panel
+        gameTA.setEditable(false);
+        gameTA.setLineWrap(true);
+        gameTA.setWrapStyleWord(true);
+        gameTA.setText("You are a pizza delivery bot waiting for your next run. Get high while waiting?\n\nHit A for yes or B for no.");
+        mPanel.add(gameTA, BorderLayout.CENTER);
 
-//Generate labels for game text.
-//l0
-        l0c0s0 = new JLabel("Pizza Bot: The Stonening\nGet high?");
-        l0c0s0.setVisible(true);
-        thePanel.add(l0c0s0);
-//l1 Yes from l0c0s0
-        l1c0s1 = new JLabel("You are " + stoned +" stoned.\nYou are out of drug. Take delivery near dealer?");
-        l1c0s1.setVisible(false);
-        thePanel.add(l1c0s1);
-//l1 No from l0c0s0
-        l1c1s0 = new JLabel("You are not stoned.\nThis path requires further development");
-        l1c1s0.setVisible(false);
-        thePanel.add(l1c1s0);
-//l2 Yes  
-        l2c0s1 = new JLabel("You are " + stoned +" stoned.\nSee dealer.\nEncounter dealer?");
-        l2c0s1.setVisible(false);
-        thePanel.add(l2c0s1);
-//l2 No
-        l2c1s1 = new JLabel("You are " + stoned +" stoned.\nYou take another delivery.");
-        l2c1s1.setVisible(false);
-        thePanel.add(l2c1s1);
-//l3
-        l3c0s1 = new JLabel("You are " + stoned +" stoned.\nYou encounter drug dealer\nHe wants you to make delivery for him.\nMake delivery?");
-        l3c0s1.setVisible(false);
-        thePanel.add(l3c0s1);
-
-        l3c1s1 = new JLabel("You are " + stoned +" stoned.\nYou panic and run.\nDL's bodyguard shoots you.");
-        l3c1s1.setVisible(false);
-        thePanel.add(l3c1s1);
-
-        l3c2s1 = new JLabel("You are " + stoned +" stoned.\n");
-        l3c2s1.setVisible(false);
-        thePanel.add(l3c2s1);
-
-        l3c3s1 = new JLabel("You are " + stoned +" stoned.\n");
-        l3c3s1.setVisible(false);
-        thePanel.add(l3c3s1);
-
-
-
-
+//create buttons and add to bottom panel 
         ListenForButton buttonClick = new ListenForButton();
         
-        JPanel butpan = new JPanel();
-    	this.add(butpan, BorderLayout.PAGE_END);        
-//yes button
-        yesBut = new JButton("Yes");
-        yesBut.addActionListener(buttonClick);
-        butpan.add(yesBut);
-//no button
-        noBut = new JButton("No");
-        noBut.addActionListener(buttonClick);                
-        butpan.add(noBut);
-
-/*        resetBut = new JButton("Reset");
-            resetBut.addActionListener(buttonClick);
-            butpan.add(resetBut);*/
-
+        butA = new JButton("A");
+        butA.setVisible(true);
+        butA.addActionListener(buttonClick);
+        bPanel.add(butA);
+        
+        butB = new JButton("B");
+        butB.setVisible(true);
+        butB.addActionListener(buttonClick);
+        bPanel.add(butB);
+        
+        butC = new JButton("C");
+        butC.setVisible(false);
+        butC.addActionListener(buttonClick);
+        bPanel.add(butC);
+        
+        butD = new JButton("D");
+        butD.setVisible(false);
+        butD.addActionListener(buttonClick);
+        bPanel.add(butD);
+        
+        
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setTitle("PizzaBot : the Stonening Alpha 2");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        
+
     }
 
-        private class ListenForButton implements ActionListener {
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == yesBut){
-                    if(level == 0) { //level 0
-                    	l0c0s0.setVisible(false);
-                    	l1c0s1.setVisible(true);
-                    	level++;
-                    }
-                    
-                    else if(level == 1) { //level1
-                    	l1c0s1.setVisible(false);
-                    	l2c0s1.setVisible(true);
-                    	level++;
-                    }
-                    
-                    else if(level == 2) { //level 2
-                    	l2c0s1.setVisible(false);
-                    	l3c0s1.setVisible(true);
-                    	level++;
-                    }
-                }
-
-                else if(e.getSource() == noBut) {
-                    if(level == 0) { //level 0 no
-                    	l0c0s0.setVisible(false);
-                    	l1c1s0.setVisible(true);
-                    	level++;
-                    }
-                }
-
-/*                else if(e.getSource() == resetBut) {
-                    lab1.setVisible(true);
-                    lab2.setVisible(false);
-                    lab3.setVisible(false);
-                }*/
-            }
-        }
-
-		// TODO Auto-generated method stub
-
-
+    private class ListenForButton implements ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+//level 0
+    		if(level == 0) {
+    			if(e.getSource() == butA) {
+    				stoned = 50;
+    				stonedTF.setText("You are " + stoned + "% stoned.");
+    				level = 10;
+    				gameTA.setText("Now you're out of <drug>.\nTake delivery near dealer?\n\nHit A for yes, B for no.");
+    			}
+    			
+    			else if(e.getSource() == butB) {
+    				level = 11;
+    				gameTA.setText("Game over pending further development of this branch");
+    			}
+    		}
+    		
+    		else if(level ==10) {
+    			if(e.getSource() == butA) {
+    				level = 20;
+    				gameTA.setText("As you arrive you see Drug Lord.\nEncounter Drug Lord?\n\nHit A for yes, B for no.");
+    			}
+    			
+    			else if(e.getSource() == butB) {
+    				level = 21;
+    				gameTA.setText("You take another delivery");
+    			}
+    		}
+    		
+    	}
+    	
+    }
+    
 }

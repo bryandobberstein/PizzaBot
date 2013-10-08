@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
-public class pizzaBotAlphaTwoP0 extends JFrame {
+public class pizzaBotAlphaTwo extends JFrame {
 
     /**
 	 * Naming conventions: labels are named for the level on the decision tree, the choice made on the previous level, and
@@ -25,10 +25,10 @@ public class pizzaBotAlphaTwoP0 extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-        new pizzaBotAlphaTwoP0();
+        new pizzaBotAlphaTwo();
     }
 
-    public pizzaBotAlphaTwoP0() {
+    public pizzaBotAlphaTwo() {
         JPanel thePanel = new JPanel();
             this.add(thePanel, BorderLayout.PAGE_START);
 
