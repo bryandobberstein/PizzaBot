@@ -110,6 +110,12 @@ public class pizzaBotAlphaTwo extends JFrame {
     			}
     		}
     		
+    		else if(level == 20) {
+    			if(e.getSource() == butA) {
+    				level = 30;
+    			}
+    		}
+    		
     	}
     	
     }
