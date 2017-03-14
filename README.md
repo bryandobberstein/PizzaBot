@@ -1,4 +1,4 @@
-a-git
+PizzaBot
 =====
 
-A collection of my works and collaborations
+A silly game I occasionally work on.
